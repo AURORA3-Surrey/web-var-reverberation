@@ -11,6 +11,10 @@ options:
   - title: Smallest room, all absorptive
     result: VAR_20261119T000004Z_d01
 
+# The bands left out of the chart and its table, by centre frequency, whatever
+# the sets hold. The 63 Hz band is out until its values can be trusted.
+leave_out_hz: [63]
+
 # The curves from the literature that the chart can be compared with, one at a
 # time, in the order its menu lists them: the names of the files in references/.
 # The first is shown to begin with.

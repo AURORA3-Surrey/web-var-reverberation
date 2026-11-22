@@ -22,6 +22,21 @@ function corrected(sidecar, errata) {
   return state;
 }
 
+// A result without the bands that options.yaml leaves out. The set's file keeps
+// them; they are only not shown.
+function shown(result) {
+  const keep = result.frequency_hz.map(
+    f => !(list.leave_out_hz ?? []).includes(f)
+  );
+  const kept = values => values?.filter((_, i) => keep[i]);
+  return {
+    ...result,
+    frequency_hz: kept(result.frequency_hz),
+    value: kept(result.value),
+    spread: kept(result.spread)
+  };
+}
+
 // The options on offer: for each, its title, the room state of its set and the
 // result to plot.
 export const options = list.options.map(({ title, result: reference }) => {
@@ -31,5 +46,9 @@ export const options = list.options.map(({ title, result: reference }) => {
   if (!sidecar || !result) {
     throw new Error(`options.yaml: no set or no result for ${reference}`);
   }
-  return { title, state: corrected(sidecar, file(`${set}_errata`)), result };
+  return {
+    title,
+    state: corrected(sidecar, file(`${set}_errata`)),
+    result: shown(result)
+  };
 });
