@@ -17,7 +17,8 @@ export const shade = percent =>
 const row = option => option.volume.toFixed(1);
 
 // The measured configurations as a map: the room's volume up the side and the
-// reverberation time at mid frequencies along the bottom. Each configuration is
+// reverberation time at mid frequencies, the mean of the 500 Hz and 1 kHz
+// bands, along the bottom. Each configuration is
 // a mark, shaded by the share of its panels open and a diamond where the
 // curtains hang. A click or a tap chooses the nearest mark, and so do the arrow
 // keys once the map has the focus; `onChoose` is given its place in `options`.
@@ -122,7 +123,7 @@ export default function ConfigurationMap({ options, chosen, onChoose }) {
               y={height - 6}
               textAnchor="middle"
             >
-              Reverberation time at mid frequencies (s)
+              Mean reverberation time, 500 Hz and 1 kHz (s)
             </text>
             {volumes.map(v => (
               <g key={v}>
