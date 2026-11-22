@@ -20,14 +20,6 @@
   text-align: left;
 }
 
-.var-reverberation__notice {
-  margin: 0 0 0.75rem;
-  padding: 0.35rem 0.75rem;
-  border-left: 3px solid #e0990f;
-  background: #fdf6e7;
-  color: var(--var-reverberation-ink);
-}
-
 .var-reverberation__options {
   display: flex;
   flex-wrap: wrap;

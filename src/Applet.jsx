@@ -62,7 +62,7 @@ export default function Applet() {
   const [compared, setCompared] = useState(references.length ? '0' : '');
   const reference = references[compared];
   const name = useId();
-  const { title, state, result, sample } = options[chosen];
+  const { title, state, result } = options[chosen];
   const drawn = useGlide(
     useMemo(() => configuration(state), [state]),
     between
@@ -70,11 +70,6 @@ export default function Applet() {
 
   return (
     <>
-      {sample && (
-        <p className="var-reverberation__notice">
-          Sample data: these values are invented, not measured.
-        </p>
-      )}
       <div
         className="var-reverberation__options"
         role="radiogroup"
