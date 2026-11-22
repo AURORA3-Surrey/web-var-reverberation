@@ -67,10 +67,6 @@ export default function Chart({ result: chosen, reference, scale, label }) {
     y: y(result.value[i])
   }));
   const line = points.map(p => `${p.x},${p.y}`).join(' L');
-  // Bands that stand close together, as one-third octaves do, get small points
-  // without the ring that sets a point off from the line, so that the curve
-  // reads as the same line as any other.
-  const close = points.length > 1 && points[1].x - points[0].x < 16;
   const wash = [
     ...points.map(p => `${p.x},${y(p.value + p.spread)}`),
     ...points.toReversed().map(p => `${p.x},${y(p.value - p.spread)}`)
@@ -212,14 +208,10 @@ export default function Chart({ result: chosen, reference, scale, label }) {
           {points.map((p, i) => (
             <circle
               key={p.f}
-              className={
-                close
-                  ? 'var-reverberation__dot var-reverberation__dot--close'
-                  : 'var-reverberation__dot'
-              }
+              className="var-reverberation__dot"
               cx={p.x}
               cy={p.y}
-              r={i === active ? 5.5 : close ? 2.5 : 4}
+              r={i === active ? 5.5 : 4}
             />
           ))}
         </svg>
