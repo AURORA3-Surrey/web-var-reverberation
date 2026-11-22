@@ -18,6 +18,8 @@ options:
     result: VAR_20261119T000001Z_d01
   - title: Smallest room, all absorptive
     result: VAR_20261119T000005Z_d01
+  - title: ITU BS 1116 compliant
+    result: VAR_20261007T000001Z_d01
   - result: VAR_20261119T000002Z_d01
   - result: VAR_20261119T000003Z_d01
   - result: VAR_20261119T000004Z_d01

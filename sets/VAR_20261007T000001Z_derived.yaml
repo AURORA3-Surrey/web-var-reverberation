@@ -1,0 +1,20 @@
+# Copied from a picture of the spreadsheet page "T20 test 10 repeated": its
+# column of measured reverberation times, as printed there, to three decimals.
+# The page gives no spread. It sets the values against the limits of ITU-R
+# BS.1116 for a room of 116.88 m³ (a mean time of 0.263 s), which they keep
+# within; the limits themselves are not copied here. The analysis is the
+# page's, not this file's: which measurements it averaged and how, its software
+# and when it was computed are not recorded.
+schema: var-derived/1
+set: VAR_20261007T000001Z
+results:
+  - id: d01
+    quantity: T20
+    unit: s
+    bands: one-third octave
+    frequency_hz: [63, 80, 100, 125, 160, 200, 250, 315, 400, 500, 630, 800,
+                   1000, 1250, 1600, 2000, 2500, 3150, 4000, 5000, 6300,
+                   8000, 10000]
+    value: [0.346, 0.237, 0.235, 0.220, 0.250, 0.264, 0.294, 0.294, 0.283,
+            0.303, 0.294, 0.292, 0.289, 0.297, 0.309, 0.312, 0.274, 0.273,
+            0.246, 0.236, 0.219, 0.196, 0.179]

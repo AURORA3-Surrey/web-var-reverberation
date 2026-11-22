@@ -46,10 +46,18 @@ const DEPTH = 0.33;
 // Where an option stands on the map: the room's volume, the share of the panels
 // in front of the wall that are open, whether the curtains hang, and the
 // reverberation time at mid frequencies, the mean of the 500 Hz and 1 kHz
-// bands.
+// octave bands. A result in one-third octave bands gives an octave as the
+// mean of its three.
 function placed(state, result) {
   const { absorptive, reflective } = state.panels;
-  const at = f => result.value[result.frequency_hz.indexOf(f)];
+  const at = f => {
+    const i = result.frequency_hz.indexOf(f);
+    const thirds =
+      result.bands === 'octave'
+        ? [result.value[i]]
+        : result.value.slice(i - 1, i + 2);
+    return thirds.reduce((sum, v) => sum + v, 0) / thirds.length;
+  };
   return {
     volume: (state.wall.position_m - DEPTH) * CLEAR.width * CLEAR.height,
     open: absorptive.length / (absorptive.length + reflective.length),

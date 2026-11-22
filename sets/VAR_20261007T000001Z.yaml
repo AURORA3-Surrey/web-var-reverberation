@@ -1,0 +1,36 @@
+# Reconstructed record. The set is the measurement "T20 test 10 repeated" made
+# by the room's acoustic contractor, known here from a picture of one page of
+# its spreadsheet; a measurement on that page is stamped 7 October 2026,
+# 16:06:57. This file was put together afterwards from that picture and from
+# what was said of the room, so it is not a record made at capture:
+# - The time the set started is not known. The time in the ID is a serial number.
+# - The room was at its largest: the page gives it as 7.95 m long, 4.95 m wide
+#   and 2.97 m high. The wall's position is taken as it is for the sets of
+#   19 November with the wall all the way back: a clear length of 7.976 m
+#   between the panels, plus the 0.33 m depth of the entrance wall's panels,
+#   which is an assumption.
+# - NOTE: the list of closed panels below was given from memory and NEEDS TO
+#   BE VERIFIED. The panels not on it are taken to have been open.
+# - All four curtains were up and drawn all the way, which is recorded as
+#   drawn 100%; the scale of that figure is not the controller's, so none is
+#   named.
+# - Not recorded, and so left out: project, operator, doors, temperature and
+#   humidity, what was in the room and on its floor, loudspeakers, microphones,
+#   excitation, software and files.
+schema: var-state/1
+id: VAR_20261007T000001Z
+wall:
+  position_m: 8.306
+  method: measured
+  uncertainty_m: 0.1
+panels:
+  map: panel-map/1
+  absorptive: [2, 3, 5, 6, 7, 9, 11, 12, 16, 17, 18, 19, 23, 24, 26, 27, 29,
+               30, 34, 36, 38, 39, 40, 42, 43, 44, 45, 46, 47, 48, 51, 53,
+               54, 55, 57, 58, 60, 61, 62, 63]
+  reflective: [1, 4, 8, 10, 13, 14, 15, 20, 21, 22, 25, 28, 31, 32, 33, 35,
+               37, 41, 49, 50, 52, 56, 59]
+  fault: []
+curtains:
+  installed: {A: true, B: true, C: true, D: true}
+  drawn_pct: {A: 100, B: 100, C: 100, D: 100}

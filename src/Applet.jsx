@@ -110,8 +110,11 @@ export default function Applet() {
         onChoose={setChosen}
       />
       <p className="var-reverberation__chosen" aria-live="polite">
-        {named(option)}. Reverberation time at mid frequencies, the mean of the
-        500 Hz and 1 kHz octave bands: {option.mid.toFixed(2)} s.
+        {named(option)}. Reverberation time at mid frequencies, the mean of the{' '}
+        {result.bands === 'octave'
+          ? '500 Hz and 1 kHz octave bands'
+          : 'one-third octave bands from 400 Hz to 1.25 kHz'}
+        : {option.mid.toFixed(2)} s.
       </p>
       <div className="var-reverberation__panes">
         <figure>

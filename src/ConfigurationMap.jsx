@@ -42,12 +42,15 @@ export default function ConfigurationMap({ options, chosen, onChoose }) {
       (height - MARGIN.top - MARGIN.bottom);
   const times = [];
   for (let t = 0; t <= longest + 1e-9; t += step) times.push(t);
-  const marks = options.map((option, i) => ({
-    ...option,
-    i,
-    x: x(option.mid),
-    y: y(option.volume)
-  }));
+  // A mark that would cover another is moved up, a mark's height at a time.
+  const marks = [];
+  options.forEach((option, i) => {
+    const mark = { ...option, i, x: x(option.mid), y: y(option.volume) };
+    while (marks.some(m => Math.hypot(m.x - mark.x, m.y - mark.y) < 9)) {
+      mark.y -= 9;
+    }
+    marks.push(mark);
+  });
 
   const nearest = event => {
     const box = ref.current.getBoundingClientRect();
