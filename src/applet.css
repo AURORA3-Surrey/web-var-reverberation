@@ -233,6 +233,10 @@
   stroke-width: 2;
 }
 
+.var-reverberation__dot--close {
+  stroke: none;
+}
+
 .var-reverberation__readout {
   position: absolute;
   padding: 0.25rem 0.5rem;
