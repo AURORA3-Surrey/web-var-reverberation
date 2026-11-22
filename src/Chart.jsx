@@ -6,9 +6,9 @@ import useGlide from './useGlide.js';
 const OCTAVES = [31.5, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
 const MARGIN = { top: 32, right: 14, bottom: 44, left: 34 };
 
-// The room kept at the right for the labels of a reference's curves, and the
-// least distance between two of those labels.
-const LABELS = 52;
+// The room kept at the right for each character of the longest label of a
+// reference's curves, and the least distance between two of those labels.
+const CHARACTER = 7.5;
 const APART = 13;
 
 const tick = f => (f < 1000 ? `${f}` : `${f / 1000}k`);
@@ -64,7 +64,7 @@ export default function Chart({ result: chosen, reference, scale, label }) {
 
   const width = size?.width ?? 0;
   const height = size?.height ?? 0;
-  const right = MARGIN.right + (scale.labels ? LABELS : 0);
+  const right = MARGIN.right + scale.labels * CHARACTER;
   const lowest = Math.log2(scale.lowest) - 1 / 3;
   const highest = Math.log2(scale.highest) + 1 / 3;
   const x = f =>

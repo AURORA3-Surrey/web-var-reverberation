@@ -9,8 +9,9 @@ import useGlide from './useGlide.js';
 // One scale for every option, so that choosing another moves the curve and not
 // the axes: the bands they cover between them, and the longest time any of them
 // reaches, rounded up to a round number. The references count towards that
-// time, in the bands the options cover, and where there are any the chart
-// keeps room for their labels, so that choosing one moves nothing either.
+// time, in the bands the options cover, and the chart keeps room for the
+// longest of their labels (`labels`, in characters), so that choosing one
+// moves nothing either.
 const results = options.map(o => o.result);
 const frequencies = results.flatMap(r => r.frequency_hz);
 const lowest = Math.min(...frequencies);
@@ -31,7 +32,10 @@ const scale = {
   highest,
   top: Math.ceil(longest / step) * step,
   step,
-  labels: references.length > 0
+  labels: Math.max(
+    0,
+    ...references.flatMap(r => r.curves.map(c => c.label.length))
+  )
 };
 
 // The room state in words, for those who cannot make out the model.
