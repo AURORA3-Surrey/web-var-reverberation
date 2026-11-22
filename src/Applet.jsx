@@ -2,23 +2,36 @@ import { useId, useMemo, useState } from 'react';
 import { RoomModel } from 'lib-var-viewer-js';
 import Chart from './Chart.jsx';
 import { between, configuration } from './configuration.js';
+import { references } from './references.js';
 import { options, SAMPLE } from './sets.js';
 import useGlide from './useGlide.js';
 
 // One scale for every option, so that choosing another moves the curve and not
 // the axes: the bands they cover between them, and the longest time any of them
-// reaches, rounded up to a round number.
+// reaches, rounded up to a round number. The references count towards that
+// time, in the bands the options cover, and where there are any the chart
+// keeps room for their labels, so that choosing one moves nothing either.
 const results = options.map(o => o.result);
 const frequencies = results.flatMap(r => r.frequency_hz);
+const lowest = Math.min(...frequencies);
+const highest = Math.max(...frequencies);
 const longest = Math.max(
-  ...results.flatMap(r => r.value.map((v, i) => v + (r.spread?.[i] ?? 0)))
+  ...results.flatMap(r => r.value.map((v, i) => v + (r.spread?.[i] ?? 0))),
+  ...references.flatMap(r =>
+    r.curves.flatMap(c =>
+      c.value.filter(
+        (_, i) => r.frequency_hz[i] >= lowest && r.frequency_hz[i] <= highest
+      )
+    )
+  )
 );
 const step = longest > 2 ? 1 : longest > 1 ? 0.5 : 0.2;
 const scale = {
-  lowest: Math.min(...frequencies),
-  highest: Math.max(...frequencies),
+  lowest,
+  highest,
   top: Math.ceil(longest / step) * step,
-  step
+  step,
+  labels: references.length > 0
 };
 
 // The room state in words, for those who cannot make out the model.
@@ -37,9 +50,12 @@ function described(state) {
 
 // The applet: a list of configurations of the room, and for the one chosen the
 // room as it was, beside the reverberation time measured in it. Choosing
-// another moves the wall and the curtains there, and the curve with them.
+// another moves the wall and the curtains there, and the curve with them. The
+// menu under the chart draws the curves of one reference behind the room's.
 export default function Applet() {
   const [chosen, setChosen] = useState(0);
+  const [compared, setCompared] = useState('');
+  const reference = references[compared];
   const name = useId();
   const { title, state, result } = options[chosen];
   const drawn = useGlide(
@@ -85,13 +101,43 @@ export default function Applet() {
         <figure>
           <Chart
             result={result}
+            reference={reference}
             scale={scale}
             label={`Reverberation time against frequency, ${title}`}
           />
+          {references.length > 0 && (
+            <label className="var-reverberation__compare">
+              Compare with{' '}
+              <select
+                value={compared}
+                onChange={event => setCompared(event.target.value)}
+              >
+                <option value="">Nothing</option>
+                {references.map((r, i) => (
+                  <option key={r.name} value={i}>
+                    {r.name}, {r.source}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           <figcaption>
             {result.quantity} in {result.bands} bands, {result.standard}
             {result.accuracy && `, ${result.accuracy} accuracy`}.
             {result.spread && ` Shaded: ${result.spread_type}.`}
+            {reference && (
+              <>
+                {' '}
+                Grey: {reference.summary}. Source:{' '}
+                <a
+                  href={`https://doi.org/${reference.doi}`}
+                  title={reference.citation}
+                >
+                  {reference.source}
+                </a>
+                .
+              </>
+            )}
           </figcaption>
           <details className="var-reverberation__values">
             <summary>Values</summary>

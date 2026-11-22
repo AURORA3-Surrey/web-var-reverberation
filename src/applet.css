@@ -11,6 +11,7 @@
   --var-reverberation-click: #2971b5;
   --var-reverberation-chosen: #eaf2f9;
   --var-reverberation-data: #0b7888;
+  --var-reverberation-reference: #9ea6af;
 
   container-type: inline-size;
   color: var(--var-reverberation-muted);
@@ -147,6 +148,13 @@
   stroke: var(--var-reverberation-edge);
 }
 
+.var-reverberation__reference {
+  fill: none;
+  stroke: var(--var-reverberation-reference);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
 .var-reverberation__wash {
   fill: var(--var-reverberation-data);
   fill-opacity: 0.3;
@@ -189,6 +197,34 @@
 .var-reverberation__readout strong span {
   color: var(--var-reverberation-muted);
   font-weight: normal;
+}
+
+.var-reverberation figcaption a {
+  color: var(--var-reverberation-click);
+  text-decoration: underline;
+}
+
+.var-reverberation__compare {
+  display: block;
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  font-weight: normal;
+}
+
+.var-reverberation__compare select {
+  max-width: 100%;
+  margin: 0;
+  padding: 0.125rem 0.25rem;
+  border: 1px solid var(--var-reverberation-edge);
+  border-radius: 0.25rem;
+  background: var(--var-reverberation-surface);
+  color: var(--var-reverberation-ink);
+  font: inherit;
+}
+
+.var-reverberation__compare select:focus-visible {
+  outline: 2px solid var(--var-reverberation-click);
+  outline-offset: 2px;
 }
 
 .var-reverberation__values {

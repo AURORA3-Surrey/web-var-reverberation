@@ -1,4 +1,5 @@
 dist/
 lib/
+references/
 sample-sets/
 package-lock.json

@@ -1,10 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import useGlide from './useGlide.js';
 
 // The centre frequencies of the octave bands, which label the axis whatever
 // bands a result is in.
 const OCTAVES = [31.5, 63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
 const MARGIN = { top: 32, right: 14, bottom: 44, left: 34 };
+
+// The room kept at the right for the labels of a reference's curves, and the
+// least distance between two of those labels.
+const LABELS = 44;
+const APART = 13;
 
 const tick = f => (f < 1000 ? `${f}` : `${f / 1000}k`);
 const hertz = f => (f < 1000 ? `${f} Hz` : `${f / 1000} kHz`);
@@ -47,19 +52,25 @@ function between(from, to, t) {
 // the curve and not the axes. Pointing at the chart reads out the nearest band,
 // and so do the arrow keys once the chart has the focus. When the result
 // becomes another, the curve glides to it.
-export default function Chart({ result: chosen, scale, label }) {
+//
+// `reference`, when given, is a set of curves from the literature, drawn in
+// grey behind the result's and cut off at the edges of the plot, each with its
+// label where it leaves at the right.
+export default function Chart({ result: chosen, reference, scale, label }) {
   const result = useGlide(chosen, between);
   const [ref, size] = useSize();
   const [active, setActive] = useState(null);
+  const plot = useId();
 
   const width = size?.width ?? 0;
   const height = size?.height ?? 0;
+  const right = MARGIN.right + (scale.labels ? LABELS : 0);
   const lowest = Math.log2(scale.lowest) - 1 / 3;
   const highest = Math.log2(scale.highest) + 1 / 3;
   const x = f =>
     MARGIN.left +
     ((Math.log2(f) - lowest) / (highest - lowest)) *
-      (width - MARGIN.left - MARGIN.right);
+      (width - MARGIN.left - right);
   const y = v =>
     height -
     MARGIN.bottom -
@@ -80,6 +91,35 @@ export default function Chart({ result: chosen, scale, label }) {
   const levels = [];
   for (let v = 0; v <= scale.top + 1e-9; v += scale.step) levels.push(v);
   const point = points[active];
+
+  // A reference's curves, and for each the height of its label: that of the
+  // curve where it leaves the plot, found between the two bands either side of
+  // the edge, or where the curve ends if that is sooner. Labels that would
+  // touch are moved down, the highest staying where it is.
+  const bands = reference?.frequency_hz.map(Math.log2) ?? [];
+  const beyond = bands.findIndex(band => band >= highest);
+  const curves = (reference?.curves ?? []).map(curve => {
+    const last = beyond < 0 ? bands.length - 1 : Math.max(beyond, 1);
+    const share =
+      beyond < 0
+        ? 1
+        : (highest - bands[last - 1]) / (bands[last] - bands[last - 1]);
+    const leaving =
+      curve.value[last - 1] +
+      (curve.value[last] - curve.value[last - 1]) * share;
+    return {
+      label: curve.label,
+      line: curve.value
+        .map((v, i) => `${x(reference.frequency_hz[i])},${y(v)}`)
+        .join(' L'),
+      at: y(leaving)
+    };
+  });
+  curves
+    .toSorted((a, b) => a.at - b.at)
+    .forEach((curve, i, sorted) => {
+      if (i) curve.at = Math.max(curve.at, sorted[i - 1].at + APART);
+    });
 
   // The readout sits above its point, clear of the curve, and moves aside or
   // below where the edge of the chart leaves it no room.
@@ -124,7 +164,7 @@ export default function Chart({ result: chosen, scale, label }) {
               <line
                 className={v === 0 ? 'var-reverberation__base' : undefined}
                 x1={MARGIN.left}
-                x2={width - MARGIN.right}
+                x2={width - right}
                 y1={y(v)}
                 y2={y(v)}
               />
@@ -146,12 +186,31 @@ export default function Chart({ result: chosen, scale, label }) {
             </text>
           ))}
           <text
-            x={(MARGIN.left + width - MARGIN.right) / 2}
+            x={(MARGIN.left + width - right) / 2}
             y={height - 6}
             textAnchor="middle"
           >
             Frequency (Hz)
           </text>
+          <clipPath id={plot}>
+            <rect
+              x={MARGIN.left}
+              width={Math.max(0, width - MARGIN.left - right)}
+              height={Math.max(0, height - MARGIN.bottom)}
+            />
+          </clipPath>
+          {curves.map(curve => (
+            <g key={curve.label}>
+              <path
+                className="var-reverberation__reference"
+                clipPath={`url(#${plot})`}
+                d={`M${curve.line}`}
+              />
+              <text x={width - right + 6} y={curve.at} dy="0.32em">
+                {curve.label}
+              </text>
+            </g>
+          ))}
           {point && (
             <line
               className="var-reverberation__crosshair"

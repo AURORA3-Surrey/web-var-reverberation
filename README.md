@@ -37,6 +37,16 @@ Three things in a set are not drawn as recorded:
 - The model has no state for a panel at fault, and draws it closed.
 - Panels are found by the model's numbers, which are provisional until they are checked against the controller's.
 
+## Curves to compare with
+
+The menu under the chart draws the curves of one source from the literature, in grey behind the room's own. Each source is a file in [references](references), and [options.yaml](options.yaml) names the ones on offer, in the order of the menu. A file holds:
+
+- `name` and `source`, which make its entry in the menu, and `citation` and `doi`, for the link under the chart.
+- `summary`, a sentence saying what the curves are and how they were obtained, shown under the chart.
+- `frequency_hz` and, under `curves`, a `label` and the `value` in each band for each curve.
+
+The curves are cut off at the bands the room's results cover, and the chart's scale takes them into account, so choosing one moves nothing. They keep their own bands, and are left out of the readout and of the table of values. Values read off a published figure are someone else's work: the file says where they come from, and the page cites the source.
+
 ## Develop
 
 The model is a git submodule, so clone with it:

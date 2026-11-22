@@ -14,3 +14,8 @@ options:
     result: VAR_20000101T140000Z_d01
   - title: Short room, all reflective
     result: VAR_20000101T150000Z_d01
+
+# The curves from the literature that the chart can be compared with, one at a
+# time, in the order its menu lists them: the names of the files in references/.
+references:
+  - traer-mcdermott-2016
