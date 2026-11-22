@@ -37,8 +37,29 @@ function shown(result) {
   };
 }
 
-// The options on offer: for each, its title, the room state of its set and the
-// result to plot.
+// The room's clear section in metres, between the faces of its panels, and the
+// depth of the entrance wall's panels, as the control software has them. With
+// the wall's position they give the room's volume.
+const CLEAR = { width: 4.911, height: 3.184 };
+const DEPTH = 0.33;
+
+// Where an option stands on the map: the room's volume, the share of the panels
+// in front of the wall that are open, whether the curtains hang, and the
+// reverberation time at mid frequencies, the mean of the 500 Hz and 1 kHz
+// bands.
+function placed(state, result) {
+  const { absorptive, reflective } = state.panels;
+  const at = f => result.value[result.frequency_hz.indexOf(f)];
+  return {
+    volume: (state.wall.position_m - DEPTH) * CLEAR.width * CLEAR.height,
+    open: absorptive.length / (absorptive.length + reflective.length),
+    curtains: Object.values(state.curtains.installed).some(Boolean),
+    mid: (at(500) + at(1000)) / 2
+  };
+}
+
+// The options on offer: for each, its title if it has one, the room state of
+// its set, the result to plot and its place on the map.
 export const options = list.options.map(({ title, result: reference }) => {
   const [, set, id] = reference.match(/^(.+)_(d\d+)$/);
   const sidecar = file(set);
@@ -46,9 +67,6 @@ export const options = list.options.map(({ title, result: reference }) => {
   if (!sidecar || !result) {
     throw new Error(`options.yaml: no set or no result for ${reference}`);
   }
-  return {
-    title,
-    state: corrected(sidecar, file(`${set}_errata`)),
-    result: shown(result)
-  };
+  const state = corrected(sidecar, file(`${set}_errata`));
+  return { title, state, result: shown(result), ...placed(state, result) };
 });

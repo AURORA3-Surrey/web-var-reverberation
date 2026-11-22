@@ -2,6 +2,7 @@ import { useId, useMemo, useState } from 'react';
 import { RoomModel } from 'lib-var-viewer-js';
 import list from '../options.yaml';
 import Chart from './Chart.jsx';
+import ConfigurationMap, { named } from './ConfigurationMap.jsx';
 import { between, configuration } from './configuration.js';
 import { references } from './references.js';
 import { options } from './sets.js';
@@ -42,20 +43,24 @@ const scale = {
 // The room state in words, for those who cannot make out the model.
 function described(state) {
   const { absorptive, reflective, fault } = state.panels;
+  const set = absorptive.length + reflective.length;
   const { installed, drawn_pct } = state.curtains;
   const hanging = Object.keys(installed).filter(id => installed[id]);
   return [
     `Moving wall ${state.wall.position_m} m from the entrance wall.`,
-    `${absorptive.length} of ${absorptive.length + reflective.length + fault.length} panels absorptive.`,
+    `${absorptive.length} of ${set} panels absorptive${
+      fault.length ? `, ${fault.length} behind the wall or not known` : ''
+    }.`,
     hanging.length
       ? `Curtains drawn: ${hanging.map(id => `${id} ${drawn_pct[id]}%`).join(', ')}.`
       : 'Curtains taken down.'
   ].join(' ');
 }
 
-// The applet: a list of configurations of the room, and for the one chosen the
-// room as it was, beside the reverberation time measured in it. Choosing
-// another moves the wall and the curtains there, and the curve with them. The
+// The applet: the measured configurations of the room on a map, with a button
+// for each one that has a title, and for the one chosen the room as it was,
+// beside the reverberation time measured in it. Choosing another moves the
+// wall and the curtains there, and the curve with them. The
 // menu under the chart draws the curves of one reference behind the room's,
 // to begin with the first on offer. A notice from options.yaml, if there is
 // one, stands above it all.
@@ -64,7 +69,9 @@ export default function Applet() {
   const [compared, setCompared] = useState(references.length ? '0' : '');
   const reference = references[compared];
   const name = useId();
-  const { title, state, result } = options[chosen];
+  const option = options[chosen];
+  const { state, result } = option;
+  const title = option.title ?? named(option);
   const drawn = useGlide(
     useMemo(() => configuration(state), [state]),
     between
@@ -80,20 +87,32 @@ export default function Applet() {
       <div
         className="var-reverberation__options"
         role="radiogroup"
-        aria-label="Configuration"
+        aria-label="Named configurations"
       >
-        {options.map((option, i) => (
-          <label key={option.title} className="var-reverberation__option">
-            <input
-              type="radio"
-              name={name}
-              checked={i === chosen}
-              onChange={() => setChosen(i)}
-            />
-            <span>{option.title}</span>
-          </label>
-        ))}
+        {options.map(
+          (o, i) =>
+            o.title && (
+              <label key={o.title} className="var-reverberation__option">
+                <input
+                  type="radio"
+                  name={name}
+                  checked={i === chosen}
+                  onChange={() => setChosen(i)}
+                />
+                <span>{o.title}</span>
+              </label>
+            )
+        )}
       </div>
+      <ConfigurationMap
+        options={options}
+        chosen={chosen}
+        onChoose={setChosen}
+      />
+      <p className="var-reverberation__chosen" aria-live="polite">
+        {named(option)}. Reverberation time at mid frequencies:{' '}
+        {option.mid.toFixed(2)} s.
+      </p>
       <div className="var-reverberation__panes">
         <figure>
           <div

@@ -1,5 +1,6 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useState } from 'react';
 import useGlide from './useGlide.js';
+import useSize from './useSize.js';
 
 // The centre frequencies of the octave bands, which label the axis whatever
 // bands a result is in.
@@ -15,32 +16,14 @@ const tick = f => (f < 1000 ? `${f}` : `${f / 1000}k`);
 const hertz = f => (f < 1000 ? `${f} Hz` : `${f / 1000} kHz`);
 const seconds = v => v.toFixed(2);
 
-// The size of an element in pixels, kept up as it changes, so that the chart is
-// drawn at the size it is shown and its text is never scaled.
-function useSize() {
-  const ref = useRef(null);
-  const [size, setSize] = useState(null);
-  useEffect(() => {
-    const observer = new ResizeObserver(([entry]) =>
-      setSize({
-        width: entry.contentRect.width,
-        height: entry.contentRect.height
-      })
-    );
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-  return [ref, size];
-}
-
 // The result part of the way from one to another, t running from 0 to 1, for
-// the curve to glide. There is nothing between results in different bands, so
-// then it is the one it is going to.
+// the curve to glide. A band the two share glides; one that only the result it
+// is going to has is there at once.
 function between(from, to, t) {
-  if (from.frequency_hz.join() !== to.frequency_hz.join()) return to;
+  const before = f => from.frequency_hz.indexOf(f);
   const part = key =>
     to[key]?.map((v, i) => {
-      const u = from[key]?.[i] ?? v;
+      const u = from[key]?.[before(to.frequency_hz[i])] ?? v;
       return u + (v - u) * t;
     });
   return { ...to, value: part('value'), spread: part('spread') };

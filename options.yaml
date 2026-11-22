@@ -3,20 +3,42 @@ notice: >-
   Preliminary measurements. The room is still being tested and adjusted by its
   acoustic contractor, so these values may change.
 
-# The configurations the applet offers, in the order it lists them. `result`
-# names a derived result as the data conventions do: the ID of the set, then the
-# result's own.
+# The configurations the applet offers. `result` names a derived result as the
+# data conventions do: the ID of the set, then the result's own. Every one is a
+# point on the applet's map; one with a `title` also has a button of its own
+# above the map, in the order given here.
 options:
   - title: Largest room, all reflective
-    result: VAR_20261119T000001Z_d01
+    result: VAR_20261119T000021Z_d01
   - title: Largest room, all reflective, curtains parked
     result: VAR_20261105T000001Z_d01
   - title: Largest room, all absorptive
-    result: VAR_20261119T000002Z_d01
+    result: VAR_20261119T000025Z_d01
   - title: Smallest room, all reflective
-    result: VAR_20261119T000003Z_d01
+    result: VAR_20261119T000001Z_d01
   - title: Smallest room, all absorptive
-    result: VAR_20261119T000004Z_d01
+    result: VAR_20261119T000005Z_d01
+  - result: VAR_20261119T000002Z_d01
+  - result: VAR_20261119T000003Z_d01
+  - result: VAR_20261119T000004Z_d01
+  - result: VAR_20261119T000006Z_d01
+  - result: VAR_20261119T000007Z_d01
+  - result: VAR_20261119T000008Z_d01
+  - result: VAR_20261119T000009Z_d01
+  - result: VAR_20261119T000010Z_d01
+  - result: VAR_20261119T000011Z_d01
+  - result: VAR_20261119T000012Z_d01
+  - result: VAR_20261119T000013Z_d01
+  - result: VAR_20261119T000014Z_d01
+  - result: VAR_20261119T000015Z_d01
+  - result: VAR_20261119T000016Z_d01
+  - result: VAR_20261119T000017Z_d01
+  - result: VAR_20261119T000018Z_d01
+  - result: VAR_20261119T000019Z_d01
+  - result: VAR_20261119T000020Z_d01
+  - result: VAR_20261119T000022Z_d01
+  - result: VAR_20261119T000023Z_d01
+  - result: VAR_20261119T000024Z_d01
 
 # The bands left out of the chart and its table, by centre frequency, whatever
 # the sets hold. The 63 Hz band is out until its values can be trusted.

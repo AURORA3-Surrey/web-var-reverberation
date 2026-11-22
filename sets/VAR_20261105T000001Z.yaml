@@ -6,7 +6,7 @@
 # - The time of day is not known. The time in the ID is a serial number.
 # - The room was at its largest. The wall's position is taken as it is for the
 #   sets of 19 November with the wall all the way back: a clear length of
-#   7.97 m between the panels, plus the 0.33 m depth of the entrance wall's
+#   7.976 m between the panels, plus the 0.33 m depth of the entrance wall's
 #   panels, which is an assumption.
 # - The panels were all closed. The curtains were up and gathered in their
 #   stacks ("closed"), which is recorded as drawn 0%; the scale of that figure
@@ -17,7 +17,7 @@
 schema: var-state/1
 id: VAR_20261105T000001Z
 wall:
-  position_m: 8.3
+  position_m: 8.306
   method: measured
   uncertainty_m: 0.1
 panels:

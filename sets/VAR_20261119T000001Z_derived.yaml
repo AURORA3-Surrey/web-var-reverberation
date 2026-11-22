@@ -12,8 +12,8 @@ results:
     unit: s
     bands: octave
     frequency_hz: [63, 125, 250, 500, 1000, 2000, 4000, 8000]
-    value: [0.41, 0.68, 1.26, 1.38, 1.36, 1.41, 1.10, 0.62]
-    spread: [0.10, 0.18, 0.09, 0.06, 0.05, 0.02, 0.02, 0.02]
+    value: [0.28, 0.35, 0.64, 0.74, 0.78, 0.72, 0.60, 0.41]
+    spread: [0.08, 0.07, 0.04, 0.02, 0.02, 0.01, 0.01, 0.02]
     spread_type: "standard deviation across measurements"
     decay_evaluation: "T20 at 125 Hz and below, T30 above"
     method: "average of reverberation times"

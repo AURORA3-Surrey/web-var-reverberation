@@ -1,0 +1,25 @@
+# Read off a plot, and from the first analysis only. The values are the mean
+# and one standard deviation over the measurements, taken by pixel from the
+# octave-band plot of this configuration made on 19 November 2026, good to
+# about 0.005 s. A spread given as 0.00 is smaller than the plot shows.
+# NOTE: that first analysis ran into the noise floor at 63 and 125 Hz, so those
+# two bands are left out here. It was redone the next day with T20 at 125 Hz
+# and below, but the corrected plot of this configuration has not been
+# circulated: when it is, this result should be replaced. From 250 Hz the two
+# analyses agree to 0.002 s on the four configurations that have both.
+# The analysis is the plot's, not this file's: which measurements it averaged,
+# its software and the standard it followed are not recorded.
+schema: var-derived/1
+set: VAR_20261119T000010Z
+results:
+  - id: d01
+    quantity: T30
+    unit: s
+    bands: octave
+    frequency_hz: [250, 500, 1000, 2000, 4000, 8000]
+    value: [0.17, 0.21, 0.25, 0.40, 0.35, 0.29]
+    spread: [0.03, 0.01, 0.01, 0.03, 0.01, 0.01]
+    spread_type: "standard deviation across measurements"
+    decay_evaluation: "T30, as in the corrected analysis above 125 Hz"
+    method: "average of reverberation times"
+    computed: 2026-11-19

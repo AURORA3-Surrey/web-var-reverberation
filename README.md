@@ -1,6 +1,6 @@
 # web-var-reverberation
 
-An applet for a web page: a list of configurations of the AURORA³ variable acoustics room at the University of Surrey and, for the one chosen, the reverberation time measured in it against frequency, beside a 3D view of the room in that configuration. It is made for the articles of the AURORA³ wiki and works on any page.
+An applet for a web page: the measured configurations of the AURORA³ variable acoustics room at the University of Surrey on a map of room volume against reverberation time and, for the one chosen there, the reverberation time measured in it against frequency, beside a 3D view of the room in that configuration. It is made for the articles of the AURORA³ wiki and works on any page.
 
 ## Hardware it shows
 
@@ -17,7 +17,7 @@ It talks to no hardware. It shows measurements taken in the variable acoustics r
 
 The applet draws itself in every element with that class. It takes the page's typeface and the width of its element: the model and the chart sit side by side where that is at least 38rem, and one above the other where it is not. `dist/index.html` is the demo page, built beside it.
 
-Choosing another configuration moves the wall, the curtains and the curve to it in half a second, while the panels fade. Readers whose system asks for reduced motion see the wall, the curtains and the curve change at once.
+A configuration is chosen on the map, by a click or tap near its mark or with the arrow keys once the map has the focus, or by one of the buttons above the map, which a few named configurations have. Choosing another moves the wall, the curtains and the curve to it in half a second, while the panels fade. Readers whose system asks for reduced motion see the wall, the curtains and the curve change at once.
 
 ## The data
 
@@ -27,15 +27,18 @@ The applet reads sets of measurements in the formats of the facility's impulse r
 - `<ID>_errata.yaml`, the corrections to the sidecar, which it applies before reading it.
 - `<ID>_derived.yaml`, the results calculated from the set, for the curve: the bands, the value and the spread in each, and the standard and accuracy shown under the chart.
 
-[options.yaml](options.yaml) lists what the applet offers, in order: a title, and the result to plot, named as the conventions name one (`VAR_20261119T000001Z_d01`). It can also name bands to leave out of the chart and its table (`leave_out_hz`), which stay in the sets' files, and give a `notice` to show above the list. The files are read while building, so a change to them or to the list shows after a new build.
+[options.yaml](options.yaml) lists what the applet offers: for each configuration the result to plot, named as the conventions name one (`VAR_20261119T000001Z_d01`), and a title for those that get a button of their own above the map. It can also name bands to leave out of the chart and its table (`leave_out_hz`), which stay in the sets' files, and give a `notice` to show above the list. The files are read while building, so a change to them or to the list shows after a new build.
 
 The sets are kept in [sets](sets), in this repository for now: for each, its sidecar, its corrections if it has any and its derived results, without the audio. The first of them are records reconstructed after the event, from plots and e-mails; each file says at its head what was worked out and what is not known.
 
-Three things in a set are not drawn as recorded:
+The map places a configuration by three things worked out from its set: the room's volume, from the wall's position and the room's clear section as the control software has it (4.911 m by 3.184 m); the share of the panels in front of the wall that are open; and the reverberation time at mid frequencies, the mean of the 500 Hz and 1 kHz bands.
+
+Two things in a set are not drawn as recorded:
 
 - The model keeps the curtains as all or none, so a curtain taken down while others hang is drawn parked.
-- The model has no state for a panel at fault, and draws it closed.
-- Panels are found by the model's numbers, which are provisional until they are checked against the controller's.
+- The model has no state for a panel listed under `fault`, at fault or of unknown state, and draws it closed. In the first sets these are the panels behind the moving wall.
+
+Panels are found by the controller's numbers, which the model follows; which end of the two end walls they start from is an assumption (see the model's plan).
 
 ## Curves to compare with
 

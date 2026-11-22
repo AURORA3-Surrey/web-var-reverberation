@@ -1,0 +1,37 @@
+# Reconstructed record. The set was measured on 19 November 2026, before the
+# data conventions were in use. This file was put together afterwards from the
+# plots and e-mails about that day and from the control software, so it is not
+# a record made at capture:
+# - The time of day is not known. The time in the ID is a serial number.
+# - The wall's position is the controller's, 100 on its scale of 0 to 100, which
+#   the control software turns into a clear length of 7.976 m between the
+#   panels (1.912 m at 0, 7.976 m at 100), and so into the volume on the plot,
+#   124.72 m³. The 0.33 m depth of the entrance wall's panels is added to
+#   give the distance from that wall, which is an assumption.
+# - The plot gives the share of panels open, 0.25. Which panels that was is
+#   worked out with the control software's rule (`set_wall_absorption.py`):
+#   the share is spread evenly over the panels in front of the moving wall,
+#   wall by wall. That the measurement used that rule is an assumption.
+# - The curtains had been taken down.
+# - Not recorded, and so left out: project, operator, doors, temperature and
+#   humidity, what was in the room and on its floor, loudspeakers, microphones,
+#   excitation, software and files.
+schema: var-state/1
+id: VAR_20261119T000022Z
+wall:
+  position_m: 8.306
+  method: calibrated
+  uncertainty_m: 0.1
+  raw: 100
+  scale: "int 0-100"
+panels:
+  map: panel-map/1
+  absorptive: [2, 6, 9, 13, 16, 19, 23, 27, 31, 35, 39, 43, 47, 50, 54, 58,
+               62]
+  reflective: [1, 3, 4, 5, 7, 8, 10, 11, 12, 14, 15, 17, 18, 20, 21, 22, 24,
+               25, 26, 28, 29, 30, 32, 33, 34, 36, 37, 38, 40, 41, 42, 44,
+               45, 46, 48, 49, 51, 52, 53, 55, 56, 57, 59, 60, 61, 63]
+  fault: []
+curtains:
+  installed: {A: false, B: false, C: false, D: false}
+  drawn_pct: {}
