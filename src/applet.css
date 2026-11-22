@@ -1,0 +1,229 @@
+/* Everything is under the class the page gives the applet's element, and sets
+   what it relies on, so that the page's own styles neither leak in nor are
+   changed. The colours are the AURORA³ palette: blue for what can be clicked,
+   teal for the data. A page can change them through these properties. */
+.var-reverberation {
+  --var-reverberation-ink: #2f3742;
+  --var-reverberation-muted: #58626d;
+  --var-reverberation-rule: #e2e5e9;
+  --var-reverberation-edge: #c4cad1;
+  --var-reverberation-surface: #fff;
+  --var-reverberation-click: #2971b5;
+  --var-reverberation-chosen: #eaf2f9;
+  --var-reverberation-data: #0b7888;
+
+  container-type: inline-size;
+  color: var(--var-reverberation-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.var-reverberation__notice {
+  margin: 0 0 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-left: 3px solid #e0990f;
+  background: #fdf6e7;
+  color: var(--var-reverberation-ink);
+}
+
+.var-reverberation__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+}
+
+.var-reverberation__option {
+  position: relative;
+  display: block;
+  margin: 0;
+  font-weight: normal;
+}
+
+/* The radio button covers its label unseen, so the whole label takes the click
+   and the keyboard still finds it. */
+.var-reverberation__option input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.var-reverberation__option span {
+  display: block;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--var-reverberation-edge);
+  border-radius: 999px;
+  background: var(--var-reverberation-surface);
+  color: var(--var-reverberation-ink);
+}
+
+.var-reverberation__option input:hover + span {
+  border-color: var(--var-reverberation-click);
+}
+
+.var-reverberation__option input:checked + span {
+  border-color: var(--var-reverberation-click);
+  background: var(--var-reverberation-chosen);
+  box-shadow: inset 0 0 0 1px var(--var-reverberation-click);
+}
+
+.var-reverberation__option input:focus-visible + span {
+  outline: 2px solid var(--var-reverberation-click);
+  outline-offset: 2px;
+}
+
+/* The model and the chart, side by side where the applet is wide enough and
+   one above the other where it is not. The width is the applet's, not the
+   window's. */
+.var-reverberation__panes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+@container (min-width: 38rem) {
+  .var-reverberation__panes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.var-reverberation figure {
+  margin: 0;
+}
+
+.var-reverberation figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+}
+
+/* A view is wider than it is tall at every width, which keeps the whole room
+   in the model's frame. */
+.var-reverberation__view {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-height: 22rem;
+  overflow: hidden;
+  border: 1px solid var(--var-reverberation-rule);
+  border-radius: 0.375rem;
+  background: var(--var-reverberation-surface);
+}
+
+.var-reverberation__plot {
+  padding: 0.5rem 0.5rem 0.25rem;
+  box-sizing: border-box;
+  touch-action: pan-y;
+}
+
+.var-reverberation__plot:focus-visible {
+  outline: 2px solid var(--var-reverberation-click);
+  outline-offset: 2px;
+}
+
+.var-reverberation__plot svg {
+  display: block;
+  overflow: visible;
+}
+
+.var-reverberation__plot text {
+  fill: var(--var-reverberation-muted);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.var-reverberation__plot line {
+  stroke: var(--var-reverberation-rule);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.var-reverberation__plot line.var-reverberation__base,
+.var-reverberation__plot line.var-reverberation__crosshair {
+  stroke: var(--var-reverberation-edge);
+}
+
+.var-reverberation__wash {
+  fill: var(--var-reverberation-data);
+  fill-opacity: 0.12;
+}
+
+.var-reverberation__curve {
+  fill: none;
+  stroke: var(--var-reverberation-data);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.var-reverberation__dot {
+  fill: var(--var-reverberation-data);
+  stroke: var(--var-reverberation-surface);
+  stroke-width: 2;
+}
+
+.var-reverberation__readout {
+  position: absolute;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--var-reverberation-rule);
+  border-radius: 0.25rem;
+  background: var(--var-reverberation-surface);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.var-reverberation__readout strong {
+  display: block;
+  color: var(--var-reverberation-ink);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.var-reverberation__readout strong span {
+  color: var(--var-reverberation-muted);
+  font-weight: normal;
+}
+
+.var-reverberation__values {
+  margin-top: 0.25rem;
+  font-size: 0.8125rem;
+}
+
+.var-reverberation__values summary {
+  width: fit-content;
+  color: var(--var-reverberation-click);
+  cursor: pointer;
+}
+
+.var-reverberation__values table {
+  width: auto;
+  margin: 0.25rem 0 0;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.var-reverberation__values th,
+.var-reverberation__values td {
+  padding: 0.125rem 0 0.125rem 1.25rem;
+  border: 0;
+  border-bottom: 1px solid var(--var-reverberation-rule);
+  background: none;
+  text-align: right;
+}
+
+.var-reverberation__values th {
+  color: var(--var-reverberation-ink);
+  font-weight: 600;
+}
+
+.var-reverberation__values th:first-child,
+.var-reverberation__values td:first-child {
+  padding-left: 0;
+}

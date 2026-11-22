@@ -1,0 +1,16 @@
+# The configurations the applet offers, in the order it lists them. `result`
+# names a derived result as the data conventions do: the ID of the set, then the
+# result's own.
+options:
+  - title: All reflective
+    result: VAR_20000101T100000Z_d01
+  - title: All reflective, no curtains
+    result: VAR_20000101T110000Z_d01
+  - title: Walls absorptive
+    result: VAR_20000101T120000Z_d01
+  - title: All absorptive
+    result: VAR_20000101T130000Z_d01
+  - title: All absorptive, curtains drawn
+    result: VAR_20000101T140000Z_d01
+  - title: Short room, all reflective
+    result: VAR_20000101T150000Z_d01

@@ -1,0 +1,36 @@
+# Sample set with invented values, for developing the applet. It is not a
+# measurement: no SOFA file exists for it, so it has no `files` block.
+schema: var-state/1
+id: VAR_20000101T120000Z
+project: sample-data
+operator: XX
+wall:
+  position_m: 8.745
+  method: calibrated
+  uncertainty_m: 0.01
+  raw: 100
+  scale: "int 0-100, controller v1"
+panels:
+  map: panel-map/1
+  absorptive: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+               18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+               33, 34, 35, 36, 37]
+  reflective: [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52,
+               53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]
+  fault: []
+curtains:
+  scale: "int 0-100, controller v1"
+  installed: {A: true, B: true, C: true, D: true}
+  drawn_pct: {A: 0, B: 0, C: 0, D: 0}
+settled: true
+doors: {entrance: closed, store: closed, moving_wall: closed}
+environment:
+  temperature_c: 20.5
+  humidity_pct: 45
+room_contents: "empty"
+sources:
+  L1: {model: "omnidirectional loudspeaker", level: "not recorded"}
+receiver: {model: "omnidirectional microphone", channels: ["omni"]}
+excitation: {type: "exponential sweep", length_s: 10, fs_hz: 48000}
+averaging: {repeats: 1, method: "none"}
+software: "none: the values are invented"

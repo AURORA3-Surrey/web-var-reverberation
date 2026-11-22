@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+type: software
+title: web-var-reverberation
+abstract: >-
+  Applet showing the reverberation time of the AURORA³ variable acoustics room
+  at the University of Surrey by configuration, beside a 3D view of the room.
+authors:
+  - family-names: De Sena
+    given-names: Enzo
+    affiliation: University of Surrey
+repository-code: https://github.com/AURORA3-Surrey/web-var-reverberation
+license: MIT
+version: 0.1.0

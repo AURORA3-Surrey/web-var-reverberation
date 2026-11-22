@@ -1,0 +1,3 @@
+[submodule "lib/lib-var-viewer-js"]
+	path = lib/lib-var-viewer-js
+	url = git@github.com:AURORA3-Surrey/lib-var-viewer-js.git

@@ -1,0 +1,10 @@
+# Sample corrections, for developing the applet (see the set's sidecar).
+schema: var-errata/1
+set: VAR_20000101T150000Z
+corrections:
+  - field: wall.position_m
+    was: 3.45
+    now: 3.5
+    reason: "tape read from the wrong mark"
+    by: XX
+    date: 2000-01-03

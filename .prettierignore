@@ -1,0 +1,4 @@
+dist/
+lib/
+sample-sets/
+package-lock.json
