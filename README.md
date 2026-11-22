@@ -17,6 +17,8 @@ It talks to no hardware. It shows measurements taken in the variable acoustics r
 
 The applet draws itself in every element with that class. It takes the page's typeface and the width of its element: the model and the chart sit side by side where that is at least 38rem, and one above the other where it is not. `dist/index.html` is the demo page, built beside it.
 
+Choosing another configuration moves the wall, the curtains and the curve to it in half a second, while the panels fade. Readers whose system asks for reduced motion see the wall, the curtains and the curve change at once.
+
 ## The data
 
 The applet reads sets of measurements in the formats of the facility's impulse response data conventions:

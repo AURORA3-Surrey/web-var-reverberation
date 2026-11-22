@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import useGlide from './useGlide.js';
 
 // The centre frequencies of the octave bands, which label the axis whatever
 // bands a result is in.
@@ -27,12 +28,27 @@ function useSize() {
   return [ref, size];
 }
 
+// The result part of the way from one to another, t running from 0 to 1, for
+// the curve to glide. There is nothing between results in different bands, so
+// then it is the one it is going to.
+function between(from, to, t) {
+  if (from.frequency_hz.join() !== to.frequency_hz.join()) return to;
+  const part = key =>
+    to[key]?.map((v, i) => {
+      const u = from[key]?.[i] ?? v;
+      return u + (v - u) * t;
+    });
+  return { ...to, value: part('value'), spread: part('spread') };
+}
+
 // A result's values against frequency, on a logarithmic axis: a line through
 // the bands and, around it, a wash as wide as the spread either side. `scale`
 // is the same for every result on offer (see Applet), so choosing another moves
 // the curve and not the axes. Pointing at the chart reads out the nearest band,
-// and so do the arrow keys once the chart has the focus.
-export default function Chart({ result, scale, label }) {
+// and so do the arrow keys once the chart has the focus. When the result
+// becomes another, the curve glides to it.
+export default function Chart({ result: chosen, scale, label }) {
+  const result = useGlide(chosen, between);
   const [ref, size] = useSize();
   const [active, setActive] = useState(null);
 

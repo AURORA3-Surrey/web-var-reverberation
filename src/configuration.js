@@ -21,3 +21,25 @@ export function configuration(state) {
     wallPosition: Math.round(state.wall.position_m * 1000)
   };
 }
+
+// The configuration part of the way from one to another, t running from 0 to
+// 1: the wall and the curtains are where they would be on the way. The panels
+// are those of the one it is going to, since the model fades them itself. So
+// are the curtains when one of the two has none, as there is nothing between
+// hanging and taken down.
+export function between(from, to, t) {
+  const part = (a, b) => a + (b - a) * t;
+  return {
+    panels: to.panels,
+    curtains:
+      from.curtains && to.curtains
+        ? Object.fromEntries(
+            Object.keys(to.curtains).map(id => [
+              id,
+              part(from.curtains[id] ?? 0, to.curtains[id])
+            ])
+          )
+        : to.curtains,
+    wallPosition: part(from.wallPosition, to.wallPosition)
+  };
+}

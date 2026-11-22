@@ -1,8 +1,9 @@
 import { useId, useMemo, useState } from 'react';
 import { RoomModel } from 'lib-var-viewer-js';
 import Chart from './Chart.jsx';
-import { configuration } from './configuration.js';
+import { between, configuration } from './configuration.js';
 import { options, SAMPLE } from './sets.js';
+import useGlide from './useGlide.js';
 
 // One scale for every option, so that choosing another moves the curve and not
 // the axes: the bands they cover between them, and the longest time any of them
@@ -35,12 +36,16 @@ function described(state) {
 }
 
 // The applet: a list of configurations of the room, and for the one chosen the
-// room as it was, beside the reverberation time measured in it.
+// room as it was, beside the reverberation time measured in it. Choosing
+// another moves the wall and the curtains there, and the curve with them.
 export default function Applet() {
   const [chosen, setChosen] = useState(0);
   const name = useId();
   const { title, state, result } = options[chosen];
-  const drawn = useMemo(() => configuration(state), [state]);
+  const drawn = useGlide(
+    useMemo(() => configuration(state), [state]),
+    between
+  );
 
   return (
     <>
