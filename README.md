@@ -39,7 +39,7 @@ Three things in a set are not drawn as recorded:
 
 ## Curves to compare with
 
-The menu under the chart draws the curves of one source from the literature, in grey behind the room's own. Each source is a file in [references](references), and [options.yaml](options.yaml) names the ones on offer, in the order of the menu. A file holds:
+The menu under the chart draws the curves of one source from the literature, in grey behind the room's own. Each source is a file in [references](references), and [options.yaml](options.yaml) names the ones on offer, in the order of the menu; the first is shown to begin with. A file holds:
 
 - `name` and `source`, which make its entry in the menu, and `citation` and `doi`, for the link under the chart.
 - `summary`, a sentence saying what the curves are and how they were obtained, shown under the chart.

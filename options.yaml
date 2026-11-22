@@ -17,5 +17,6 @@ options:
 
 # The curves from the literature that the chart can be compared with, one at a
 # time, in the order its menu lists them: the names of the files in references/.
+# The first is shown to begin with.
 references:
   - traer-mcdermott-2016

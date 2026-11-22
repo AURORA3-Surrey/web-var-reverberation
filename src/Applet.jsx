@@ -55,10 +55,11 @@ function described(state) {
 // The applet: a list of configurations of the room, and for the one chosen the
 // room as it was, beside the reverberation time measured in it. Choosing
 // another moves the wall and the curtains there, and the curve with them. The
-// menu under the chart draws the curves of one reference behind the room's.
+// menu under the chart draws the curves of one reference behind the room's,
+// to begin with the first on offer.
 export default function Applet() {
   const [chosen, setChosen] = useState(0);
-  const [compared, setCompared] = useState('');
+  const [compared, setCompared] = useState(references.length ? '0' : '');
   const reference = references[compared];
   const name = useId();
   const { title, state, result } = options[chosen];
