@@ -4,6 +4,8 @@
 options:
   - title: Largest room, all reflective
     result: VAR_20261119T000001Z_d01
+  - title: Largest room, all reflective, curtains parked
+    result: VAR_20261105T000001Z_d01
   - title: Largest room, all absorptive
     result: VAR_20261119T000002Z_d01
   - title: Smallest room, all reflective

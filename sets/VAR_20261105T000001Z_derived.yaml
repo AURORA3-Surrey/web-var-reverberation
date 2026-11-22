@@ -1,0 +1,23 @@
+# Read off a plot. The values are the mean and one standard deviation over six
+# measurements, taken from the octave-band panel of the plot circulated on
+# 5 November 2026. The plot is small, so they are good to about 0.01 s. At
+# 4 and 8 kHz the markers of the other series cover this one's error bar: a
+# spread given as 0.00 is smaller than the plot shows. The plot also carries
+# T20 and the early decay time, and the same in one-third octave bands, which
+# are not taken here. The analysis is the plot's, not this file's: its software
+# and the standard it followed are not recorded.
+schema: var-derived/1
+set: VAR_20261105T000001Z
+results:
+  - id: d01
+    quantity: T30
+    unit: s
+    bands: octave
+    frequency_hz: [63, 125, 250, 500, 1000, 2000, 4000, 8000]
+    value: [0.46, 0.76, 1.07, 1.04, 0.98, 0.89, 0.63, 0.43]
+    spread: [0.13, 0.13, 0.14, 0.08, 0.10, 0.14, 0.00, 0.00]
+    spread_type: "standard deviation across measurements"
+    measurements: [1, 2, 3, 4, 5, 6]
+    decay_evaluation: "least-squares fit from -5 to -35 dB"
+    method: "average of reverberation times"
+    computed: 2026-11-05

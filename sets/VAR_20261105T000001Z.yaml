@@ -1,0 +1,34 @@
+# Reconstructed record. The set was measured on 5 November 2026, before the
+# data conventions were in use, and is "measurement 16" on the plot it comes
+# from. This file was put together afterwards from that plot, the e-mails about
+# that day and what was said of the room since, so it is not a record made at
+# capture:
+# - The time of day is not known. The time in the ID is a serial number.
+# - The room was at its largest. The wall's position is taken as it is for the
+#   sets of 19 November with the wall all the way back: a clear length of
+#   7.97 m between the panels, plus the 0.33 m depth of the entrance wall's
+#   panels, which is an assumption.
+# - The panels were all closed. The curtains were up and gathered in their
+#   stacks ("closed"), which is recorded as drawn 0%; the scale of that figure
+#   is not the controller's, so none is named.
+# - Not recorded, and so left out: project, operator, doors, temperature and
+#   humidity, what was in the room and on its floor, loudspeakers, microphones,
+#   excitation, software and files.
+schema: var-state/1
+id: VAR_20261105T000001Z
+wall:
+  position_m: 8.3
+  method: measured
+  uncertainty_m: 0.1
+panels:
+  map: panel-map/1
+  absorptive: []
+  reflective: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+               18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+               33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
+               48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62,
+               63]
+  fault: []
+curtains:
+  installed: {A: true, B: true, C: true, D: true}
+  drawn_pct: {A: 0, B: 0, C: 0, D: 0}
