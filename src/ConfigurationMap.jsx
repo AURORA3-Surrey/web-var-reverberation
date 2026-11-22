@@ -42,15 +42,15 @@ export default function ConfigurationMap({ options, chosen, onChoose }) {
       (height - MARGIN.top - MARGIN.bottom);
   const times = [];
   for (let t = 0; t <= longest + 1e-9; t += step) times.push(t);
-  // A mark that would cover another is moved up, a mark's height at a time.
-  const marks = [];
-  options.forEach((option, i) => {
-    const mark = { ...option, i, x: x(option.mid), y: y(option.volume) };
-    while (marks.some(m => Math.hypot(m.x - mark.x, m.y - mark.y) < 9)) {
-      mark.y -= 9;
-    }
-    marks.push(mark);
-  });
+  const marks = options.map((option, i) => ({
+    ...option,
+    i,
+    x: x(option.mid),
+    y: y(option.volume)
+  }));
+  // Marks that are close lie over one another, each where it belongs, and the
+  // one chosen is drawn last, so that it is the one in front.
+  const drawn = [...marks].sort((a, b) => (a.i === chosen) - (b.i === chosen));
 
   const nearest = event => {
     const box = ref.current.getBoundingClientRect();
@@ -143,7 +143,7 @@ export default function ConfigurationMap({ options, chosen, onChoose }) {
                 </text>
               </g>
             ))}
-            {marks.map(m =>
+            {drawn.map(m =>
               m.curtains ? (
                 <rect
                   key={m.i}
