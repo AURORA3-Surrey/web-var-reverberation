@@ -68,6 +68,22 @@ npm run dev
 
 `npm run dev` serves the demo page, [index.html](index.html), which holds the applet in a column as wide as a wiki article. In a clone made without the submodule, `git submodule update --init` fetches it.
 
+## Release
+
+A page takes the applet from a release, not from a clone: `var-reverberation.js`, built from the tagged commit, is attached to each release on GitHub, and a site that serves it records the release's tag and the file's SHA-256. To cut one, with the version in `package.json` and `CITATION.cff` raised and everything pushed:
+
+```bash
+npm run build
+```
+
+```bash
+shasum -a 256 dist/var-reverberation.js
+```
+
+```bash
+gh release create v0.1.0 dist/var-reverberation.js --title v0.1.0 --notes "First release."
+```
+
 ## Citation
 
 See [CITATION.cff](CITATION.cff), or GitHub's "Cite this repository".
