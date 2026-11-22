@@ -27,7 +27,7 @@ The applet reads sets of measurements in the formats of the facility's impulse r
 - `<ID>_errata.yaml`, the corrections to the sidecar, which it applies before reading it.
 - `<ID>_derived.yaml`, the results calculated from the set, for the curve: the bands, the value and the spread in each, and the standard and accuracy shown under the chart.
 
-[options.yaml](options.yaml) lists what the applet offers, in order: a title, and the result to plot, named as the conventions name one (`VAR_20261119T000001Z_d01`). It can also name bands to leave out of the chart and its table (`leave_out_hz`), which stay in the sets' files. The files are read while building, so a change to them or to the list shows after a new build.
+[options.yaml](options.yaml) lists what the applet offers, in order: a title, and the result to plot, named as the conventions name one (`VAR_20261119T000001Z_d01`). It can also name bands to leave out of the chart and its table (`leave_out_hz`), which stay in the sets' files, and give a `notice` to show above the list. The files are read while building, so a change to them or to the list shows after a new build.
 
 The sets are kept in [sets](sets), in this repository for now: for each, its sidecar, its corrections if it has any and its derived results, without the audio. The first of them are records reconstructed after the event, from plots and e-mails; each file says at its head what was worked out and what is not known.
 

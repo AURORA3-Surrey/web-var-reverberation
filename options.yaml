@@ -1,3 +1,8 @@
+# A notice shown above the list, for as long as it is here.
+notice: >-
+  Preliminary measurements. The room is still being tested and adjusted by its
+  acoustic contractor, so these values may change.
+
 # The configurations the applet offers, in the order it lists them. `result`
 # names a derived result as the data conventions do: the ID of the set, then the
 # result's own.

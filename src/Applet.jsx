@@ -1,5 +1,6 @@
 import { useId, useMemo, useState } from 'react';
 import { RoomModel } from 'lib-var-viewer-js';
+import list from '../options.yaml';
 import Chart from './Chart.jsx';
 import { between, configuration } from './configuration.js';
 import { references } from './references.js';
@@ -56,7 +57,8 @@ function described(state) {
 // room as it was, beside the reverberation time measured in it. Choosing
 // another moves the wall and the curtains there, and the curve with them. The
 // menu under the chart draws the curves of one reference behind the room's,
-// to begin with the first on offer.
+// to begin with the first on offer. A notice from options.yaml, if there is
+// one, stands above it all.
 export default function Applet() {
   const [chosen, setChosen] = useState(0);
   const [compared, setCompared] = useState(references.length ? '0' : '');
@@ -70,6 +72,11 @@ export default function Applet() {
 
   return (
     <>
+      {list.notice && (
+        <p className="var-reverberation__notice" role="note">
+          {list.notice}
+        </p>
+      )}
       <div
         className="var-reverberation__options"
         role="radiogroup"
