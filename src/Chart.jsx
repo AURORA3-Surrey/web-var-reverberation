@@ -8,7 +8,7 @@ const MARGIN = { top: 32, right: 14, bottom: 44, left: 34 };
 
 // The room kept at the right for the labels of a reference's curves, and the
 // least distance between two of those labels.
-const LABELS = 44;
+const LABELS = 52;
 const APART = 13;
 
 const tick = f => (f < 1000 ? `${f}` : `${f / 1000}k`);
