@@ -3,7 +3,7 @@ import { RoomModel } from 'lib-var-viewer-js';
 import Chart from './Chart.jsx';
 import { between, configuration } from './configuration.js';
 import { references } from './references.js';
-import { options, SAMPLE } from './sets.js';
+import { options } from './sets.js';
 import useGlide from './useGlide.js';
 
 // One scale for every option, so that choosing another moves the curve and not
@@ -62,7 +62,7 @@ export default function Applet() {
   const [compared, setCompared] = useState(references.length ? '0' : '');
   const reference = references[compared];
   const name = useId();
-  const { title, state, result } = options[chosen];
+  const { title, state, result, sample } = options[chosen];
   const drawn = useGlide(
     useMemo(() => configuration(state), [state]),
     between
@@ -70,7 +70,7 @@ export default function Applet() {
 
   return (
     <>
-      {SAMPLE && (
+      {sample && (
         <p className="var-reverberation__notice">
           Sample data: these values are invented, not measured.
         </p>

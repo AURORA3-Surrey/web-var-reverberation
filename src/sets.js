@@ -2,15 +2,20 @@ import list from '../options.yaml';
 
 // The files of the sets, as the data conventions name them: `<ID>.yaml` is a
 // set's sidecar, `<ID>_errata.yaml` its corrections and `<ID>_derived.yaml` the
-// results calculated from it. These are samples with invented values, which
-// SAMPLE says; measured sets replace both lines (see the README).
-const files = import.meta.glob('../sample-sets/*.yaml', {
+// results calculated from it. Measured sets are kept in sets/, without their
+// audio. Those in sample-sets/ have invented values, to develop the applet
+// with.
+const measured = import.meta.glob('../sets/*.yaml', {
   eager: true,
   import: 'default'
 });
-export const SAMPLE = true;
+const samples = import.meta.glob('../sample-sets/*.yaml', {
+  eager: true,
+  import: 'default'
+});
 
-const file = name => files[`../sample-sets/${name}.yaml`];
+const file = name =>
+  measured[`../sets/${name}.yaml`] ?? samples[`../sample-sets/${name}.yaml`];
 
 // A sidecar with its corrections applied, as the conventions ask of every
 // program that reads one. A correction names its field by the path to it.
@@ -24,8 +29,8 @@ function corrected(sidecar, errata) {
   return state;
 }
 
-// The options on offer: for each, its title, the room state of its set and the
-// result to plot.
+// The options on offer: for each, its title, the room state of its set, the
+// result to plot and whether the set is a sample.
 export const options = list.options.map(({ title, result: reference }) => {
   const [, set, id] = reference.match(/^(.+)_(d\d+)$/);
   const sidecar = file(set);
@@ -33,5 +38,10 @@ export const options = list.options.map(({ title, result: reference }) => {
   if (!sidecar || !result) {
     throw new Error(`options.yaml: no set or no result for ${reference}`);
   }
-  return { title, state: corrected(sidecar, file(`${set}_errata`)), result };
+  return {
+    title,
+    state: corrected(sidecar, file(`${set}_errata`)),
+    result,
+    sample: !measured[`../sets/${set}.yaml`]
+  };
 });
