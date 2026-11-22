@@ -1,0 +1,20 @@
+# Read off a plot. The values are the mean and one standard deviation over the
+# measurements, taken by pixel from the octave-band plot of this configuration
+# circulated on 20 November 2026, good to about 0.005 s. A spread given as 0.00
+# is smaller than the plot shows. The analysis is the plot's, not this file's:
+# which measurements it averaged, its software and the standard it followed
+# are not recorded, and its only note is the one under `decay_evaluation`.
+schema: var-derived/1
+set: VAR_20261119T000001Z
+results:
+  - id: d01
+    quantity: T60
+    unit: s
+    bands: octave
+    frequency_hz: [63, 125, 250, 500, 1000, 2000, 4000, 8000]
+    value: [0.41, 0.68, 1.26, 1.38, 1.36, 1.41, 1.10, 0.62]
+    spread: [0.10, 0.18, 0.09, 0.06, 0.05, 0.02, 0.02, 0.02]
+    spread_type: "standard deviation across measurements"
+    decay_evaluation: "T20 at 125 Hz and below, T30 above"
+    method: "average of reverberation times"
+    computed: 2026-11-20

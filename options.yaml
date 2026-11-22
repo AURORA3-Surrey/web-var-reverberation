@@ -2,17 +2,25 @@
 # names a derived result as the data conventions do: the ID of the set, then the
 # result's own.
 options:
-  - title: All reflective
+  - title: Largest room, all reflective
+    result: VAR_20261119T000001Z_d01
+  - title: Largest room, all absorptive
+    result: VAR_20261119T000002Z_d01
+  - title: Smallest room, all reflective
+    result: VAR_20261119T000003Z_d01
+  - title: Smallest room, all absorptive
+    result: VAR_20261119T000004Z_d01
+  - title: All reflective (sample)
     result: VAR_20000101T100000Z_d01
-  - title: All reflective, no curtains
+  - title: All reflective, no curtains (sample)
     result: VAR_20000101T110000Z_d01
-  - title: Walls absorptive
+  - title: Walls absorptive (sample)
     result: VAR_20000101T120000Z_d01
-  - title: All absorptive
+  - title: All absorptive (sample)
     result: VAR_20000101T130000Z_d01
-  - title: All absorptive, curtains drawn
+  - title: All absorptive, curtains drawn (sample)
     result: VAR_20000101T140000Z_d01
-  - title: Short room, all reflective
+  - title: Short room, all reflective (sample)
     result: VAR_20000101T150000Z_d01
 
 # The curves from the literature that the chart can be compared with, one at a

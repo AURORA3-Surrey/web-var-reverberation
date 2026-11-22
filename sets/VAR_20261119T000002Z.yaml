@@ -1,0 +1,32 @@
+# Reconstructed record. The set was measured on 19 November 2026, before the
+# data conventions were in use. This file was put together afterwards from the
+# plots and e-mails about that day, so it is not a record made at capture:
+# - The time of day is not known. The time in the ID is a serial number.
+# - The wall's position is worked out from the room volume on the plot,
+#   124.72 m³: the clear length between the panels, 7.97 m (the wall
+#   all the way back), times a clear section of 15.65 m², 4.89 m wide by
+#   3.2 m high. The 0.33 m depth of the entrance wall's panels is added to
+#   give the distance from that wall, which is an assumption.
+# - The panels were all open: the plot gives the share of panels open,
+#   1.0. The curtains had been taken down.
+# - Not recorded, and so left out: project, operator, doors, temperature and
+#   humidity, what was in the room and on its floor, loudspeakers, microphones,
+#   excitation, software and files.
+schema: var-state/1
+id: VAR_20261119T000002Z
+wall:
+  position_m: 8.3
+  method: measured
+  uncertainty_m: 0.1
+panels:
+  map: panel-map/1
+  absorptive: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+               18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+               33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47,
+               48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62,
+               63]
+  reflective: []
+  fault: []
+curtains:
+  installed: {A: false, B: false, C: false, D: false}
+  drawn_pct: {}

@@ -127,7 +127,8 @@ export default function Applet() {
             </label>
           )}
           <figcaption>
-            {result.quantity} in {result.bands} bands, {result.standard}
+            {result.quantity} in {result.bands} bands
+            {result.standard && `, ${result.standard}`}
             {result.accuracy && `, ${result.accuracy} accuracy`}.
             {result.spread && ` Shaded: ${result.spread_type}.`}
             {reference && (

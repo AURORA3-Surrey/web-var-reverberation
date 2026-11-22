@@ -29,7 +29,7 @@ The applet reads sets of measurements in the formats of the facility's impulse r
 
 [options.yaml](options.yaml) lists what the applet offers, in order: a title, and the result to plot, named as the conventions name one (`VAR_20000101T100000Z_d01`). The files are read while building, so a change to them or to the list shows after a new build.
 
-Measured sets are kept in `sets/`, in this repository for now: for each, its sidecar, its corrections if it has any and its derived results, without the audio. The sets in [sample-sets](sample-sets) are samples with invented values, there to develop the applet with, and the applet says so above its list whenever the configuration shown is one of them.
+Measured sets are kept in `sets/`, in this repository for now: for each, its sidecar, its corrections if it has any and its derived results, without the audio. The sets in [sample-sets](sample-sets) are samples with invented values, there to develop the applet with, and the applet says so above its list whenever the configuration shown is one of them. The first measured sets are records reconstructed after the event, from plots and e-mails; each file says at its head what was worked out and what is not known.
 
 Three things in a set are not drawn as recorded:
 
