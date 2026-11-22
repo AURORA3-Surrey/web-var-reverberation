@@ -290,39 +290,56 @@
   outline-offset: 2px;
 }
 
-.var-reverberation__values {
-  margin-top: 0.25rem;
+/* The table of values and the line that opens it. A page may style every
+   table and disclosure it holds, as the AURORA³ wiki does, in part with
+   !important, so everything these two rely on is set here outright. */
+.var-reverberation .var-reverberation__values {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
   font-size: 0.8125rem;
 }
 
-.var-reverberation__values summary {
+.var-reverberation .var-reverberation__values summary {
   width: fit-content;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
   color: var(--var-reverberation-click);
+  font-weight: normal;
   cursor: pointer;
 }
 
-.var-reverberation__values table {
+.var-reverberation .var-reverberation__values table {
   width: auto;
   margin: 0.25rem 0 0;
+  border: 0;
   border-collapse: collapse;
+  color: inherit;
+  font-size: inherit;
   font-variant-numeric: tabular-nums;
 }
 
-.var-reverberation__values th,
-.var-reverberation__values td {
+.var-reverberation .var-reverberation__values th,
+.var-reverberation .var-reverberation__values td {
   padding: 0.125rem 0 0.125rem 1.25rem;
-  border: 0;
-  border-bottom: 1px solid var(--var-reverberation-rule);
-  background: none;
+  border: 0 !important;
+  border-bottom: 1px solid var(--var-reverberation-rule) !important;
+  background: none !important;
   text-align: right;
+  vertical-align: baseline;
 }
 
-.var-reverberation__values th {
+.var-reverberation .var-reverberation__values th {
   color: var(--var-reverberation-ink);
   font-weight: 600;
 }
 
-.var-reverberation__values th:first-child,
-.var-reverberation__values td:first-child {
+.var-reverberation .var-reverberation__values th:first-child,
+.var-reverberation .var-reverberation__values td:first-child {
   padding-left: 0;
 }

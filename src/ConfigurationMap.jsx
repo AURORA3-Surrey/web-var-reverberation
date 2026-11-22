@@ -126,7 +126,9 @@ export default function ConfigurationMap({ options, chosen, onChoose }) {
               y={height - 6}
               textAnchor="middle"
             >
-              Mean reverberation time, 500 Hz and 1 kHz (s)
+              {width < 480
+                ? 'Mean RT, 500 Hz and 1 kHz (s)'
+                : 'Mean reverberation time, 500 Hz and 1 kHz (s)'}
             </text>
             {volumes.map(v => (
               <g key={v}>
